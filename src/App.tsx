@@ -1,17 +1,18 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "./features/counterSlice";
-import { RootState } from "./store";
+import { Routes, Route } from "react-router-dom";
+import { Employees } from "./pages/Employees";
+import { Tasks } from "./pages/Tasks";
+import { NavBar } from "./components/NavBar";
 
 function App() {
-  const dispatch = useDispatch();
-  const count = useSelector((state: RootState) => state.counter.value);
-
   return (
     <div>
-      <h1>Counter: {count}</h1>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      <NavBar />
+
+      <Routes>
+        <Route path="/" element={<Employees />} />
+        <Route path="/tasks" element={<Tasks />} />
+      </Routes>
     </div>
   );
 }
