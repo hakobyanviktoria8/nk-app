@@ -1,0 +1,44 @@
+.employees {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  h1,
+  h2 {
+    text-align: center;
+    margin: 20px;
+  }
+
+  .employeeWrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+
+    div {
+      border: 1px solid;
+      padding: 20px;
+      margin: 0 15px 30px;
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+
+    button {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .active {
+      background: gray;
+      color: white;
+    }
+  }
+}
