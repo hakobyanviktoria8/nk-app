@@ -4,11 +4,9 @@ import "./../styles/modal.scss";
 import { EmployeeType } from "../pages/Employees";
 import { Input } from "./Input";
 import { Button } from "./Button";
-
-type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { closeModal } from "../features/isOpenModalSlice";
 
 const customStyles = {
   content: {
@@ -25,13 +23,18 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-export const ModalComp = ({ isOpen, onClose }: ModalProps) => {
+export const ModalComp = () => {
   const [formData, setFormData] = useState<EmployeeType>({
     name: "",
     surname: "",
     email: "",
     position: "",
   });
+
+  const dispatch = useDispatch();
+  const isOpenModal = useSelector(
+    (state: RootState) => state.isOpenModal.value
+  );
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -46,19 +49,25 @@ export const ModalComp = ({ isOpen, onClose }: ModalProps) => {
     e.preventDefault();
     // addEmployee(formData);
     setFormData({ name: "", surname: "", email: "", position: "" });
-    onClose();
+    dispatch(closeModal());
+    console.log("formData_____", formData);
   };
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
+      isOpen={isOpenModal}
+      onRequestClose={() => dispatch(closeModal())}
       style={customStyles}
       contentLabel="Modal"
     >
       <div className="modalHeader">
         <h2>Employee data</h2>
-        <button onClick={onClose}>close</button>
+
+        <Button
+          className="deleteEmployeeBtn"
+          text="Close"
+          onClick={() => dispatch(closeModal())}
+        />
       </div>
 
       <form onSubmit={handleSubmit} className="modalForm">

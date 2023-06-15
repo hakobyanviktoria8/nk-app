@@ -4,6 +4,9 @@ import axios from "axios";
 import { Employee } from "../components/Employee";
 import { ModalComp } from "../components/ModalComp";
 import { Button } from "../components/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { openModal } from "./../features/isOpenModalSlice";
 
 export type EmployeeType = {
   id?: string;
@@ -19,7 +22,11 @@ export const Employees = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const randomNumber = Math.floor(Math.random() * 100) + 1;
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const isOpenModal = useSelector(
+    (state: RootState) => state.isOpenModal.value
+  );
 
   const fetchEmployees = async (page: number) => {
     try {
@@ -43,21 +50,17 @@ export const Employees = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
   return (
     <div className="employees">
       <h1>Employees</h1>
 
-      <Button className="newEmployee" text="New Employee" onClick={openModal} />
+      <Button
+        className="newEmployee"
+        text="New Employee"
+        onClick={() => dispatch(openModal())}
+      />
 
-      {isOpen && <ModalComp isOpen={isOpen} onClose={closeModal} />}
+      {isOpenModal && <ModalComp />}
 
       {!employees.length && <h2>Loading...</h2>}
 
