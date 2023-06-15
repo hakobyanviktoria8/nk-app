@@ -3,17 +3,26 @@ import { EmployeeType } from "../pages/Employees";
 import { Button } from "./Button";
 import { useDispatch } from "react-redux";
 import { openModal } from "../features/isOpenModalSlice";
+import { deleteEmployee } from "../features/employeesSlice";
+import axios from "axios";
 
 type EmployeeProps = {
   employee: EmployeeType;
 };
 
 export const Employee = ({ employee }: EmployeeProps) => {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const dispatch = useDispatch();
 
-  const handleDetele = (id: string | undefined) => {
-    // filter employee data
-    console.log("Detele id________", id);
+  const handleDelete = (id: string | undefined) => {
+    axios
+      .delete(`${baseUrl}/employees/${id}`)
+      .then(() => {
+        dispatch(deleteEmployee(id));
+      })
+      .catch((error) => {
+        console.error("Error deleting employee______", error);
+      });
   };
 
   const handleUpdate = (id: string | undefined) => {
@@ -38,7 +47,7 @@ export const Employee = ({ employee }: EmployeeProps) => {
         <Button
           className="deleteEmployeeBtn"
           text="Delete"
-          onClick={() => handleDetele(employee.id)}
+          onClick={() => handleDelete(employee.id)}
         />
       </div>
     </div>

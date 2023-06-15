@@ -13,8 +13,11 @@ const employeesSlice = createSlice({
   name: "employees",
   initialState,
   reducers: {
+    setEmployees: (state, action) => {
+      state.value = action.payload;
+    },
     addEmployee: (state, action) => {
-      state.value.push(action.payload);
+      state.value = [...state.value, action.payload];
     },
     deleteEmployee: (state, action) => {
       const employeeId = action.payload;
@@ -25,6 +28,7 @@ const employeesSlice = createSlice({
   },
 });
 
-export const { addEmployee, deleteEmployee } = employeesSlice.actions;
+export const { setEmployees, addEmployee, deleteEmployee } =
+  employeesSlice.actions;
 
 export default employeesSlice.reducer;

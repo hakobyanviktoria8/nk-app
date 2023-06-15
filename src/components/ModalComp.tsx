@@ -4,10 +4,11 @@ import "./../styles/modal.scss";
 import { EmployeeType } from "../pages/Employees";
 import { Input } from "./Input";
 import { Button } from "./Button";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { closeModal } from "../features/isOpenModalSlice";
-import axios from "axios";
+import { addEmployee } from "../features/employeesSlice";
 
 const customStyles = {
   content: {
@@ -25,9 +26,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const ModalComp = () => {
-  const baseUrl = `${process.env.REACT_APP_BASE_URL}/employees`;
-  // console.log("baseUrl__________", baseUrl);
-
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const [formData, setFormData] = useState<EmployeeType>({
     name: "",
     surname: "",
@@ -42,7 +41,6 @@ export const ModalComp = () => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -52,12 +50,10 @@ export const ModalComp = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(baseUrl, formData);
-      console.log("handleSubmit response", response);
-      // add employee state here
+      const response = await axios.post(`${baseUrl}/employees`, formData);
+      dispatch(addEmployee(response.data));
       setFormData({ name: "", surname: "", email: "", position: "" });
       dispatch(closeModal());
-      console.log("formData_____", formData);
     } catch (error) {
       console.error("Error employee creating______", error);
     }

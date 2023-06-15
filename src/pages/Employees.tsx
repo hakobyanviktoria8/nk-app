@@ -7,6 +7,7 @@ import { Button } from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { openModal } from "./../features/isOpenModalSlice";
+import { setEmployees } from "../features/employeesSlice";
 
 export type EmployeeType = {
   id?: string;
@@ -18,7 +19,6 @@ export type EmployeeType = {
 
 export const Employees = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
-  const [employees, setEmployees] = useState<EmployeeType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -27,13 +27,15 @@ export const Employees = () => {
   const isOpenModal = useSelector(
     (state: RootState) => state.isOpenModal.value
   );
+  const employees = useSelector((state: RootState) => state.employees?.value);
 
   const fetchEmployees = async (page: number) => {
     try {
       const response = await axios.get(
         `${baseUrl}/employees?_page=${page}&_limit=10`
       );
-      setEmployees(response.data);
+      console.log("response___________", response);
+      dispatch(setEmployees(response.data));
       setTotalPages(Math.ceil(response.headers["x-total-count"] / 10));
     } catch (error) {
       console.error("Error employees", error);
