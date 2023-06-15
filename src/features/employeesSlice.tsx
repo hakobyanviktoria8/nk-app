@@ -25,10 +25,16 @@ const employeesSlice = createSlice({
         (employee) => employee.id !== employeeId
       );
     },
+    updateEmployee: (state, action) => {
+      const idx = state.value.findIndex((x) => x.id === action.payload.id);
+      if (idx !== -1) {
+        state.value[idx] = action.payload;
+      }
+    },
   },
 });
 
-export const { setEmployees, addEmployee, deleteEmployee } =
+export const { setEmployees, addEmployee, deleteEmployee, updateEmployee } =
   employeesSlice.actions;
 
 export default employeesSlice.reducer;

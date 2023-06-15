@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "./../styles/modal.scss";
 import { EmployeeType } from "../pages/Employees";
@@ -8,7 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { closeModal } from "../features/isOpenModalSlice";
-import { addEmployee } from "../features/employeesSlice";
+import { addEmployee, updateEmployee } from "../features/employeesSlice";
 
 const customStyles = {
   content: {
@@ -27,6 +27,7 @@ Modal.setAppElement("#root");
 
 export const ModalComp = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const empId = localStorage.getItem("employeeId");
   const [formData, setFormData] = useState<EmployeeType>({
     name: "",
     surname: "",
@@ -39,6 +40,20 @@ export const ModalComp = () => {
     (state: RootState) => state.isOpenModal.value
   );
 
+  useEffect(() => {
+    if (empId) {
+      axios
+        .get(`${baseUrl}/employees/${empId}`)
+        .then((response) => {
+          const { name, surname, email, position } = response.data;
+          setFormData({ name, surname, email, position });
+        })
+        .catch((error) => {
+          console.error("Error fetching employee data:", error);
+        });
+    }
+  }, [baseUrl, empId]);
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -50,10 +65,19 @@ export const ModalComp = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${baseUrl}/employees`, formData);
-      dispatch(addEmployee(response.data));
+      if (empId) {
+        const response = await axios.put(
+          `${baseUrl}/employees/${empId}`,
+          formData
+        );
+        dispatch(updateEmployee(response.data));
+      } else {
+        const response = await axios.post(`${baseUrl}/employees`, formData);
+        dispatch(addEmployee(response.data));
+      }
       setFormData({ name: "", surname: "", email: "", position: "" });
       dispatch(closeModal());
+      localStorage.removeItem("employeeId");
     } catch (error) {
       console.error("Error employee creating______", error);
     }

@@ -25,10 +25,9 @@ export const Employee = ({ employee }: EmployeeProps) => {
       });
   };
 
-  const handleUpdate = (id: string | undefined) => {
+  const handleUpdate = (id: string) => {
+    localStorage.setItem("employeeId", id);
     dispatch(openModal());
-    // set employee dta here
-    console.log("Update id________", id);
   };
 
   return (
@@ -42,7 +41,7 @@ export const Employee = ({ employee }: EmployeeProps) => {
         <Button
           className="addEmployeeBtn"
           text="Update"
-          onClick={() => handleUpdate(employee.id)}
+          onClick={() => handleUpdate(employee.id || "")}
         />
         <Button
           className="deleteEmployeeBtn"
