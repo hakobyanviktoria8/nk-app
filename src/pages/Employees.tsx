@@ -3,6 +3,7 @@ import "./../styles/employees.scss";
 import axios from "axios";
 import { Employee } from "../components/Employee";
 import { ModalComp } from "../components/ModalComp";
+import { Button } from "../components/Button";
 
 export type EmployeeType = {
   id?: string;
@@ -53,10 +54,8 @@ export const Employees = () => {
   return (
     <div className="employees">
       <h1>Employees</h1>
-      
-      <button className="newEmployee" onClick={openModal}>
-        New Employee
-      </button>
+
+      <Button className="newEmployee" text="New Employee" onClick={openModal} />
 
       {isOpen && <ModalComp isOpen={isOpen} onClose={closeModal} />}
 

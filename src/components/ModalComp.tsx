@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import "./../styles/modal.scss";
 import { EmployeeType } from "../pages/Employees";
 import { Input } from "./Input";
+import { Button } from "./Button";
 
 type ModalProps = {
   isOpen: boolean;
@@ -90,12 +91,7 @@ export const ModalComp = ({ isOpen, onClose }: ModalProps) => {
           handleChange={handleChange}
         />
         <div className="buttonsWrapper">
-          <button type="submit" className="addEmployeeBtn">
-            Add
-          </button>
-          <button type="submit" className="deleteEmployeeBtn">
-            Delete
-          </button>
+          <Button className="addEmployeeBtn" text="Add" />
         </div>
       </form>
     </Modal>
