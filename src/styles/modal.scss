@@ -1,0 +1,50 @@
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 70px;
+    background: #6fff6f;
+  }
+}
+.modalForm {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+
+    span {
+      width: 100px;
+    }
+
+    input {
+      height: 30px;
+      margin-left: 20px;
+      width: 300px;
+    }
+  }
+
+  .addEmployeeBtn {
+    padding: 10px;
+    width: 100px;
+    background: #6fff6f;
+    margin-right: 20px;
+  }
+
+  .deleteEmployeeBtn {
+    padding: 10px;
+    width: 100px;
+    background: #ff7878;
+  }
+
+  .buttonsWrapper {
+    display: flex;
+    justify-content: end;
+  }
+}
