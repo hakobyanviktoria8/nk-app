@@ -7,6 +7,7 @@ import { Button } from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { closeModal } from "../features/isOpenModalSlice";
+import axios from "axios";
 
 const customStyles = {
   content: {
@@ -24,6 +25,9 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const ModalComp = () => {
+  const baseUrl = `${process.env.REACT_APP_BASE_URL}/employees`;
+  // console.log("baseUrl__________", baseUrl);
+
   const [formData, setFormData] = useState<EmployeeType>({
     name: "",
     surname: "",
@@ -45,12 +49,18 @@ export const ModalComp = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // addEmployee(formData);
-    setFormData({ name: "", surname: "", email: "", position: "" });
-    dispatch(closeModal());
-    console.log("formData_____", formData);
+    try {
+      const response = await axios.post(baseUrl, formData);
+      console.log("handleSubmit response", response);
+      // add employee state here
+      setFormData({ name: "", surname: "", email: "", position: "" });
+      dispatch(closeModal());
+      console.log("formData_____", formData);
+    } catch (error) {
+      console.error("Error employee creating______", error);
+    }
   };
 
   return (
@@ -100,7 +110,7 @@ export const ModalComp = () => {
           handleChange={handleChange}
         />
         <div className="buttonsWrapper">
-          <Button className="addEmployeeBtn" text="Add" />
+          <Button className="addEmployeeBtn addBtn" text="Add" />
         </div>
       </form>
     </Modal>

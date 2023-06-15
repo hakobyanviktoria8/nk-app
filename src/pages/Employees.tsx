@@ -36,7 +36,7 @@ export const Employees = () => {
       setEmployees(response.data);
       setTotalPages(Math.ceil(response.headers["x-total-count"] / 10));
     } catch (error) {
-      console.error("Error fetching employees:", error);
+      console.error("Error employees", error);
     }
   };
 
@@ -62,10 +62,10 @@ export const Employees = () => {
 
       {isOpenModal && <ModalComp />}
 
-      {!employees.length && <h2>Loading...</h2>}
+      {!employees?.length && <h2>Loading...</h2>}
 
       <div className="employeeWrapper">
-        {employees.map((employee, idx) => (
+        {employees?.map((employee, idx) => (
           <Employee
             employee={employee}
             key={employee.id + idx.toString() + randomNumber.toString()}
