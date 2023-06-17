@@ -1,9 +1,8 @@
 import React from "react";
-import { EmployeeType } from "../pages/Employees";
 import { Button } from "./Button";
 import { useDispatch } from "react-redux";
 import { openModal } from "../features/isOpenModalSlice";
-import { deleteEmployee } from "../features/employeesSlice";
+import { EmployeeType, deleteEmployee } from "../features/employeesSlice";
 import axios from "axios";
 
 type EmployeeProps = {

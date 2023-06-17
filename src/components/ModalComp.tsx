@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "./../styles/modal.scss";
-import { EmployeeType } from "../pages/Employees";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { closeModal } from "../features/isOpenModalSlice";
-import { addEmployee, updateEmployee } from "../features/employeesSlice";
+import { EmployeeType, addEmployee, updateEmployee } from "../features/employeesSlice";
 
 const customStyles = {
   content: {

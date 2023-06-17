@@ -7,16 +7,8 @@ import { Button } from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { openModal } from "./../features/isOpenModalSlice";
-import { setEmployees } from "../features/employeesSlice";
+import { getEmployees } from "../features/employeesSlice";
 import { Pagination } from "../components/Pagination";
-
-export type EmployeeType = {
-  id?: string;
-  name?: string;
-  surname?: string;
-  email?: string;
-  position?: string;
-};
 
 export const Employees = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -35,8 +27,8 @@ export const Employees = () => {
       const response = await axios.get(
         `${baseUrl}/employees?_page=${page}&_limit=10`
       );
-      console.log("response___________", response);
-      dispatch(setEmployees(response.data));
+      console.log("response employees___________", response);
+      dispatch(getEmployees(response.data));
       setTotalPages(Math.ceil(response.headers["x-total-count"] / 10));
     } catch (error) {
       console.error("Error employees", error);

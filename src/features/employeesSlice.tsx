@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EmployeeType } from "../pages/Employees";
+
+export type EmployeeType = {
+  id?: string;
+  name?: string;
+  surname?: string;
+  email?: string;
+  position?: string;
+};
 
 interface EmployeesSlice {
   value: EmployeeType[];
@@ -13,7 +20,7 @@ const employeesSlice = createSlice({
   name: "employees",
   initialState,
   reducers: {
-    setEmployees: (state, action) => {
+    getEmployees: (state, action) => {
       state.value = action.payload;
     },
     addEmployee: (state, action) => {
@@ -34,7 +41,7 @@ const employeesSlice = createSlice({
   },
 });
 
-export const { setEmployees, addEmployee, deleteEmployee, updateEmployee } =
+export const { getEmployees, addEmployee, deleteEmployee, updateEmployee } =
   employeesSlice.actions;
 
 export default employeesSlice.reducer;

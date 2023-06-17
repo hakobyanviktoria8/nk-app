@@ -18,7 +18,7 @@ export const Tasks = () => {
       const response = await axios.get(
         `${baseUrl}/tasks?_page=${page}&_limit=5`
       );
-      // console.log("response tasks___________", response);
+      console.log("response tasks___________", response);
       dispatch(getTasks(response.data));
       setTotalPages(Math.ceil(response.headers["x-total-count"] / 5));
     } catch (error) {
