@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice";
 import isOpenModalReducer from "./features/isOpenModalSlice";
 import employeesReducer from "./features/employeesSlice";
+import tasksReducer from "./features/tasksSlice";
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
     isOpenModal: isOpenModalReducer,
     employees: employeesReducer,
+    tasks: tasksReducer,
   },
 });
 

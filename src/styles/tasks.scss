@@ -1,0 +1,29 @@
+.tasks {
+  h1,
+  h2 {
+    text-align: center;
+    margin: 20px;
+  }
+  form {
+    border: 1px solid;
+    width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+
+    label span {
+      width: 100px;
+    }
+
+    label textarea,
+    label select {
+      min-height: 30px;
+      margin-left: 20px;
+      min-width: 255px;
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto;
+    }
+  }
+}

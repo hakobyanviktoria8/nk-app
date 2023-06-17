@@ -1,4 +1,5 @@
 import React from "react";
+import "./../styles/input.scss";
 
 type InputType = {
   label?: string;

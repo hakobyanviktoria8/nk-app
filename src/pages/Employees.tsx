@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { openModal } from "./../features/isOpenModalSlice";
 import { setEmployees } from "../features/employeesSlice";
+import { Pagination } from "../components/Pagination";
 
 export type EmployeeType = {
   id?: string;
@@ -75,19 +76,11 @@ export const Employees = () => {
         ))}
       </div>
 
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-          (page) => (
-            <button
-              key={page}
-              onClick={() => handlePagination(page)}
-              className={currentPage === page ? "active" : ""}
-            >
-              {page}
-            </button>
-          )
-        )}
-      </div>
+      <Pagination
+        totalPages={totalPages}
+        handlePagination={handlePagination}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
